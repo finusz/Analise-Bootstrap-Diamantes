@@ -32,8 +32,8 @@ means_prices = [mean1, mean2]
 limit_inf, limit_sup = confidence_interval(means_prices)
 
 if limit_inf > 0:
-    st.markdown(f"Com 95% de confiança, a lapidação **{opcoes[0]}** é, em média, entre R$ {limit_inf:.2f} e R$ {limit_sup:.2f} **mais cara** que a {opcoes[1]}.")
+    st.markdown(f"Com 95% de confiança, a lapidação **{opcoes[0]}** é, em média, entre {limit_inf:.2f} reais e {limit_sup:.2f} reais **mais cara** que a {opcoes[1]}.")
 elif limit_sup < 0:
-    st.markdown(f"Com 95% de confiança, a lapidação **{opcoes[0]}** é, em média, entre R$ {abs(limit_sup):.2f} e R$ {abs(limit_inf):.2f} **mais barata** que a {opcoes[1]}.")
+    st.markdown(f"Com 95% de confiança, a lapidação **{opcoes[0]}** é, em média, entre {abs(limit_sup):.2f} reais e {abs(limit_inf):.2f} reais **mais barata** que a {opcoes[1]}.")
 else:
     st.markdown(f"Não há diferença estatisticamente significativa entre os preços médios das lapidações **{opcoes[0]}** e **{opcoes[1]}** (o intervalo inclui zero).")
