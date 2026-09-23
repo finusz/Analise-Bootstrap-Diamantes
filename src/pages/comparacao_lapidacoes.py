@@ -29,7 +29,7 @@ st.pyplot(fig)
 
 
 means_prices = [mean1, mean2]
-limitInf, limitSup = confidence_interval(means_prices)
+limit_inf, limit_sup = confidence_interval(means_prices)
 
 if limit_inf > 0:
     st.markdown(f"Com 95% de confiança, a lapidação **{opcoes[0]}** é, em média, entre R$ {limit_inf:.2f} e R$ {limit_sup:.2f} **mais cara** que a {opcoes[1]}.")
