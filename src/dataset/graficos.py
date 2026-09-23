@@ -45,7 +45,7 @@ def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
         ax.set_xlabel('Preço (US$)', fontsize=18, labelpad=10)
         ax.set_ylabel('Frequência', fontsize=18, labelpad=10)
         ax.tick_params(axis='both', which='major', labelsize=14)
-        ax.legend(fontsize=12)
+        ax.legend(fontsize=15)
 
         for data, lbl in zip(data_group, label_group):
             sns.histplot(data=data, ax=ax, alpha=0.5, kde=True, label=lbl)
