@@ -9,7 +9,7 @@ from src.util.graficos import *
 
 from scipy import stats
 
-st.title('Bootstrap do Preço dos Diamantes', text_alignment='center')
+st.title('Analise Exploratória de Diamantes', text_alignment='center')
 st.subheader('Felipe Nunes e Heloísa Azevedo', text_alignment='center')
 st.divider()
 st.markdown('A base de dados utilizada é nativa da biblioteca do Seaborn. A análise tem como objetivo estimar a média de preço de diamentes com diferentes lapidações, afim de entender qual é a mais lucrativa de ser feita.')
@@ -64,6 +64,17 @@ Dos diamantes apresentados, são dividios em 5 lapidações diferentes:
   * **Boa:** 4906 (9.1%);
   * **Regular:** 1610 (3.0%).
   ''')
+
+st.divider()
+st.subheader('Proporção dos dados',text_alignment='center')
+fig_hist, ax = plt.subplots()
+df_diamonds.hist(ax=ax) 
+st.pyplot(fig_hist)
+st.write('')
+st.subheader('Distribuição dos preços entre as lapidações', text_alignment='center')
+fig_boxplot, ax = plt.subplots()
+sns.boxplot(data=df_diamonds, x='lapidação', y='preço', hue='lapidação', palette=["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"], legend=False, ax=ax)
+st.pyplot(fig_boxplot)
 
 st.divider()
 st.subheader('Boostrap inicial dos diamantes em relação ao preço', text_alignment='center')
