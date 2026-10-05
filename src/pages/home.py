@@ -12,7 +12,7 @@ from scipy import stats
 st.title('Bootstrap do Preço dos Diamantes', text_alignment='center')
 st.subheader('Felipe Nunes e Heloísa Azevedo', text_alignment='center')
 st.divider()
-st.markdown('A base de dados utilizada é nativa da biblioteca do Seaborn. A análise foi realizada utilizando o método de reamostragem bootstrap para estimar a média do preço dos diamantes e comparar as médias entre diferentes tipos de corte afim de entender qual é vale mais a pena de ser feito.')
+st.markdown('A base de dados utilizada é nativa da biblioteca do Seaborn. A análise tem como objetivo estimar a média de preço de diamentes com diferentes lapidações, afim de entender qual é a mais lucrativa de ser feita.')
 
 st.divider()
 st.subheader('Base de Dados de Diamantes', text_alignment='center')
@@ -53,8 +53,8 @@ st.markdown('Foi realizado o boostrap de 5000 médias do preço dos diamante')
 fig_histMean, price_means = hist_means()
 st.pyplot(fig_histMean)
 
-st.markdown(r'h0: média de preço = 3900')
-st.markdown('h1: média de prçeo != 3900')
+st.markdown(r'h0: média geral do preço = 3900')
+st.markdown('h1: média geral do preço != 3900')
 st.markdown(r'Tendo em vista 95% de confiança')
 
 h0_value = 3900

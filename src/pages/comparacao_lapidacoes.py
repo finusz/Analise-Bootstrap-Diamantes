@@ -3,6 +3,7 @@ from src.dataset.graficos import hists
 from src.dataset.calculos import bootstrap, confidence_interval
 
 import streamlit as st
+
 import pandas as pd
 import numpy as np
 

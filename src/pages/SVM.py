@@ -1,42 +1,20 @@
 import streamlit as st
+
 import pandas as pd
 import numpy as np
-from seaborn import load_dataset
+from src.dataset.data import df_diamonds
+
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score
 from sklearn.inspection import DecisionBoundaryDisplay
+
 import matplotlib.pyplot as plt
 
 st.title("Classificação SVM - Dataset Diamonds")
 
 # Cache para não recarregar os dados a cada clique no Streamlit
-@st.cache_data
-def carregar_dados():
-    df = load_dataset('diamonds')
-    df = df.rename(columns={
-        'carat': 'quilate',
-        'cut': 'lapidação',
-        'color': 'cor',
-        'clarity': 'pureza',
-        'depth': 'profundidade',
-        'table': 'largura do topo em relação à base',
-        'price': 'preço'
-    })
-    
-    # CORREÇÃO: Converter a coluna categórica para texto simples
-    df['lapidação'] = df['lapidação'].astype(str)
-    
-    traducao_lapidacao = {
-        'Very Good': 'Muito Boa',
-        'Good': 'Boa',
-        'Fair': 'Regular'
-    }
-    df['lapidação'] = df['lapidação'].replace(traducao_lapidacao)
-    return df
-
-df_diamonds = carregar_dados()
 
 # Pegando as opções únicas disponíveis na coluna lapidação
 opcoes_disponiveis = df_diamonds['lapidação'].unique()
