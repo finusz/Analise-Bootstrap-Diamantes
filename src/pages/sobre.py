@@ -1,13 +1,12 @@
 import streamlit as st
 
 st.markdown(
-    "<h1 style='text-align: center;'>Sobre</h1>", unsafe_allow_allow_html=True
+    "<h1 style='text-align: center;'>Sobre</h1>", unsafe_allow_html=True
 )
 
 st.markdown(
     "<p style='text-align: center; font-size: 1.1rem;'>"
     "Esse app foi desenvolvido para uma atividade da Faculdade de Tecnologia de Cotia (FATEC-COTIA). "
-    "Os responsáveis foram:"
     "</p>",
     unsafe_allow_html=True,
 )
