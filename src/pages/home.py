@@ -48,6 +48,12 @@ st.pyplot(fig_corr)
 st.markdown('Como esperado, o preço do diamante está muito ligado ao quilate dele.')
 
 st.divider()
+st.subheader('Comparação do preço entre os tipos de lapidações', text_alignment='center')
+fig_bar, ax = plt.subplots()
+sns.barplot(df_diamonds, x="lapidação", y="preço")
+st.pyplot(fig_bar)
+
+st.divider()
 st.subheader('Boostrap inicial dos diamantes em relação ao preço', text_alignment='center')
 st.markdown('Foi realizado o boostrap de 5000 médias do preço dos diamante')
 fig_histMean, price_means = hist_means()
