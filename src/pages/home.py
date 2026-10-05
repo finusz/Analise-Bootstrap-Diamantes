@@ -49,7 +49,7 @@ st.markdown('Como esperado, o preço do diamante está muito ligado ao quilate d
 
 st.divider()
 st.subheader('Comparação do preço entre os tipos de lapidações', text_alignment='center')
-fig_bar, ax = bar_diamonts()
+fig_bar = bar_diamonts()
 st.pyplot(fig_bar)
 
 st.divider()
