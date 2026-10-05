@@ -65,8 +65,11 @@ def bar_diamonts():
     sns.despine(top=True, right=True, left=True, bottom=True)
     ax.set_yticks([])
 
+    for spine in plt.gca().spines.values():
+        spine.set_visible(False)
+
     for container in ax.containers:
-        ax.bar_label(container, fmt="$%.0f", padding=4, fontsize=10, fontweight="bold")
+        ax.bar_label(container, fmt="$%.0f", padding=3, fontsize=10, fontweight="bold")
 
     plt.tight_layout()
     return fig
