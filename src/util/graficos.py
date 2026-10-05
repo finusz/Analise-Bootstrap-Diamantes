@@ -73,3 +73,41 @@ def bar_diamonts():
 
     plt.tight_layout()
     return fig
+
+def proportion_category_diamonds():
+  proportions = df_diamonds["lapidação"].value_counts(normalize=True)
+
+  colors_list = ["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"]
+  back_color = "#dfe6e9"
+
+  fig, axes = plt.subplots(1, len(proportions), figsize=(14, 4))
+
+  if len(proportions) == 1:
+    axes = [axes]
+
+  for i, (categoria, valor) in enumerate(proportions.items()):
+    ax = axes[i]
+
+    parts = [valor, 1 - valor]
+    colors = [colors_list[i % len(colors_list)], back_color]
+
+    ax.pie(
+        parts,
+        colors=colors,
+        startangle=90,
+        wedgeprops=dict(width=0.3, edgecolor="white", linewidth=2),
+    )
+
+    ax.text(
+        0,
+        0,
+        f"{valor*100:.1f}%",
+        ha="center",
+        va="center",
+        fontsize=13,
+        fontweight="bold",
+    )
+
+  plt.tight_layout()
+
+  return fig

@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from src.dataset.data import df_diamonds
-from src.util.graficos import hist_means, bar_diamonts
+from src.util.graficos import hist_means, bar_diamonts, proportion_category_diamonds
 
 from scipy import stats
 
@@ -51,6 +51,19 @@ st.divider()
 st.subheader('Comparação do preço entre os tipos de lapidações', text_alignment='center')
 fig_bar = bar_diamonts()
 st.pyplot(fig_bar)
+
+st.divider()
+st.subheader('Proporção de cada tipo de lapidação existente no dataset', text_alignment='center')
+fig_pizza = proportion_category_diamonds()
+st.pyplot(fig_pizza)
+st.markdown(''' 
+Dos diamantes aparesentados, são dividios em 5 lapidações diferentes: 
+  * **Ideal:** 21551 (40.0%);
+  * **Premium:** 13791 (25.6%);
+  * **Muito Boa:** 12082 (22.4%);
+  * **Boa:** 4906 (9.1%);
+  * **Regular:** 1610 (3.0%).
+  ''')
 
 st.divider()
 st.subheader('Boostrap inicial dos diamantes em relação ao preço', text_alignment='center')
