@@ -11,8 +11,38 @@ st.divider()
 
 opcoes = st.multiselect("Selecione quais lapidações você deseja comparar:", df_diamonds['lapidação'].unique(),max_selections=2)
 
+st.markdown(
+    """
+    <style>
+    /* 1. Removemos completamente qualquer cor de fundo padrão e filtros das camadas internas */
+    div[data-testid="stAlert"] > div,
+    div[data-testid="stAlert"] [role="alert"] {
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+
+    /* 2. Aplicamos a cor pura diretamente no container principal */
+    div[data-testid="stAlert"] {
+        background-color: #6d5b4f !important; /* Insira aqui a cor EXATA do seu multiselect */
+        border: none !important;
+        border-radius: 18px !important;
+    }
+    
+    /* 3. Mantém o texto e o ícone na cor branca */
+    div[data-testid="stAlert"] p,
+    div[data-testid="stAlert"] svg {
+        color: white !important;
+        fill: white !important;
+        font-weight: bold !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 if len(opcoes) < 2:
-    st.info("É preciso elecionar exatamente 2 lapidações para exibir a comparação.")
+    st.info("É preciso selecionar exatamente 2 lapidações para exibir a comparação.")
     st.stop()
 
 prices1 = df_diamonds[df_diamonds['lapidação'] == opcoes[0]]['preço']

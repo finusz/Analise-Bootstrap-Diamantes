@@ -1,9 +1,14 @@
 [theme]
 base="light"
 backgroundColor = "white"
+borderColor="#6d5b4f"
 secondaryBackgroundColor = "#6d5b4f"
 textColor = "#6d5b4f"
-codeBackgroundColor = "#f9e3d4"
+
+codeBackgroundColor = "#6d5b4f"
+codeTextColor="white"
+
+baseRadius="full"
 
 font = "Montserrat:https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
 codeFont = "VT323:https://fonts.googleapis.com/css2?family=VT323&display=swap"
@@ -11,4 +16,6 @@ codeFont = "VT323:https://fonts.googleapis.com/css2?family=VT323&display=swap"
 [theme.sidebar]
 backgroundColor = "#6d5b4f"
 secondaryBackgroundColor = "white"
+borderColor="#6d5b4f"
 textColor = "white"
+baseRadius="full"

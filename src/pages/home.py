@@ -22,6 +22,16 @@ st.divider()
 buffer = StringIO()
 df_diamonds.info(buf=buffer)
 st.subheader("Informações do dataset", text_alignment='center')
+st.markdown(
+    """
+    <style>
+    pre code {
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.code(buffer.getvalue(), language="text")
 st.markdown('A base contém ao todo 53940 registros e 10 característica, não possuindo valores nulos. Os tipos dos dados se dividem em: categórico, inteiros e flutuantes.')
 
