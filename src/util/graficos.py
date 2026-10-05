@@ -109,5 +109,4 @@ def proportion_category_diamonds():
     )
 
   plt.tight_layout()
-
   return fig

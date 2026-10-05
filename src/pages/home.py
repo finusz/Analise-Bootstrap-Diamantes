@@ -53,7 +53,7 @@ fig_bar = bar_diamonts()
 st.pyplot(fig_bar)
 
 st.divider()
-st.subheader('Proporção de cada tipo de lapidação existente no dataset', text_alignment='center')
+st.subheader('Proporção de cada tipo de lapidação existente', text_alignment='center')
 fig_pizza = proportion_category_diamonds()
 st.pyplot(fig_pizza)
 st.markdown(''' 
