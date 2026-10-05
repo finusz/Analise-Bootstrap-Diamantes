@@ -54,3 +54,19 @@ def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
             ax.legend()
 
     return fig
+
+def bar_diamonts():
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.barplot(df_diamonds, x="lapidação", y="preço", palette=['#6d5b4f'], errorbar=None, ax=ax)
+    
+    ax.set_xlabel("Lapidação", fontsize=12, labelpad=10)
+    ax.set_ylabel("Preço Médio (USD)", fontsize=12, labelpad=10)
+    
+    sns.despine(top=True, right=True, left=True, bottom=True)
+    ax.set_yticks([])
+
+    for container in ax.containers:
+        ax.bar_label(container, fmt="$%.0f", padding=4, fontsize=10, fontweight="bold")
+
+    plt.tight_layout()
+    return fig

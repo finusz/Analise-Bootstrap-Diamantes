@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from src.dataset.data import df_diamonds
-from src.dataset.graficos import hist_means
+from src.dataset.graficos import hist_means, bar_diamonts
 
 from scipy import stats
 
@@ -49,8 +49,7 @@ st.markdown('Como esperado, o preço do diamante está muito ligado ao quilate d
 
 st.divider()
 st.subheader('Comparação do preço entre os tipos de lapidações', text_alignment='center')
-fig_bar, ax = plt.subplots()
-sns.barplot(df_diamonds, x="lapidação", y="preço")
+fig_bar, ax = bar_diamonts()
 st.pyplot(fig_bar)
 
 st.divider()
