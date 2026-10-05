@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from .data import df_diamonds
+from ..dataset.data import df_diamonds
 
 
 def bootstrap(series1, series2, n_iterations=5000, sample_size=50):
