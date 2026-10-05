@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from src.dataset.data import df_diamonds
-from src.dataset.graficos import hist_means, bar_diamonts
+from src.util.graficos import hist_means, bar_diamonts
 
 from scipy import stats
 

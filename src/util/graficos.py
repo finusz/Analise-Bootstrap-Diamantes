@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 #IMPORTAÇÃO DO DATASET
-from .data import df_diamonds
+from ..dataset.data import df_diamonds
 
 
 def hist_means():

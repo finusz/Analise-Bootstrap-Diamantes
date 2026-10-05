@@ -1,6 +1,6 @@
 from src.dataset.data import df_diamonds
-from src.dataset.graficos import hists
-from src.dataset.calculos import bootstrap, confidence_interval
+from src.util.graficos import hists
+from src.util.calculos import bootstrap, confidence_interval
 
 import streamlit as st
 
