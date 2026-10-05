@@ -57,7 +57,7 @@ st.subheader('Proporção de cada tipo de lapidação existente no dataset', tex
 fig_pizza = proportion_category_diamonds()
 st.pyplot(fig_pizza)
 st.markdown(''' 
-Dos diamantes aparesentados, são dividios em 5 lapidações diferentes: 
+Dos diamantes apresentados, são dividios em 5 lapidações diferentes: 
   * **Ideal:** 21551 (40.0%);
   * **Premium:** 13791 (25.6%);
   * **Muito Boa:** 12082 (22.4%);
