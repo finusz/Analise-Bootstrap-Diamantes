@@ -93,7 +93,7 @@ def treinar_svm(
         ('svm', SVC(kernel='rbf', class_weight='balanced', random_state=random_state)),
     ])
 
-    grid = GridSearchCV(pipeline, param_grid, cv=cv, scoring='accuracy', n_jobs=-1)
+    grid = GridSearchCV(pipeline, param_grid, cv=cv, scoring='accuracy', n_jobs=1)
     grid.fit(X_train, y_train)
 
     modelo = grid.best_estimator_
