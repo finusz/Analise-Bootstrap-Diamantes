@@ -32,6 +32,7 @@ def treinar_svm(
     test_size=0.2,
     cv=3,
     random_state=42,
+    n_jobs=1
 ):
     """Treina um SVM (RBF) entre duas classes de lapidação."""
     if recursos_numericos is None:
@@ -93,7 +94,7 @@ def treinar_svm(
         ('svm', SVC(kernel='rbf', class_weight='balanced', random_state=random_state)),
     ])
 
-    grid = GridSearchCV(pipeline, param_grid, cv=cv, scoring='accuracy', n_jobs=1)
+    grid = GridSearchCV(pipeline, param_grid, cv=cv, scoring='accuracy', n_jobs=n_jobs)
     grid.fit(X_train, y_train)
 
     modelo = grid.best_estimator_
