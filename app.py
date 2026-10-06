@@ -2,7 +2,7 @@ import streamlit as st
 
 main_page = st.Page("src/pages/home.py", title="Analise Exploratória")
 second_page = st.Page('src/pages/comparacao_lapidacoes.py', title="Comparações")
-third_page = st.Page('src/pages/SVM.py', title="Svm")
+third_page = st.Page('src/pages/SVM.py', title="SVM - Support Vector Machine")
 about_page = st.Page('src/pages/sobre.py', title="Sobre")
 
 # navegação entre as paginas
