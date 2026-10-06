@@ -3,13 +3,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 #IMPORTAÇÃO DO DATASET
-from src.dataset.data import df_diamonds
+from src.dataset.data import df_amostra
 
 
 def hist_means():
     price_means = []
     for i in range(5000):
-        bootstrap = df_diamonds['preço'].sample(50, replace=True)
+        bootstrap = df_amostra['preço'].sample(50, replace=True)
         diamonds_means = bootstrap.mean()
         price_means.append(diamonds_means)
 
@@ -57,7 +57,7 @@ def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
 
 def bar_diamonts():
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.barplot(df_diamonds, x="lapidação", y="preço", palette=['#6d5b4f'], errorbar=None, ax=ax)
+    sns.barplot(df_amostra, x="lapidação", y="preço", palette=['#6d5b4f'], errorbar=None, ax=ax)
     
     ax.set_xlabel("Lapidação", fontsize=12, labelpad=10)
     ax.set_ylabel("Preço Médio (USD)", fontsize=12, labelpad=10)
@@ -75,7 +75,7 @@ def bar_diamonts():
     return fig
 
 def proportion_category_diamonds():
-  proportions = df_diamonds["lapidação"].value_counts(normalize=True)
+  proportions = df_amostra["lapidação"].value_counts(normalize=True)
 
   colors_list = ["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"]
   back_color = "#dfe6e9"

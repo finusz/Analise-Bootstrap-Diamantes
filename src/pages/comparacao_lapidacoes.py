@@ -1,4 +1,4 @@
-from src.dataset.data import df_diamonds
+from src.dataset.data import df_amostra
 from src.util.graficos import hists
 from src.util.calculos import bootstrap, confidence_interval
 
@@ -10,7 +10,7 @@ import numpy as np
 st.title('Comparação entre lapidações diferentes', text_alignment='center')
 st.divider()
 
-opcoes = st.multiselect("Selecione quais lapidações você deseja comparar:", df_diamonds['lapidação'].unique(),max_selections=2)
+opcoes = st.multiselect("Selecione quais lapidações você deseja comparar:", df_amostra['lapidação'].unique(),max_selections=2)
 
 st.markdown(
     """
@@ -46,8 +46,8 @@ if len(opcoes) < 2:
     st.info("É preciso selecionar exatamente 2 lapidações para exibir a comparação.")
     st.stop()
 
-prices1 = df_diamonds[df_diamonds['lapidação'] == opcoes[0]]['preço']
-prices2 = df_diamonds[df_diamonds['lapidação'] == opcoes[1]]['preço']
+prices1 = df_amostra[df_amostra['lapidação'] == opcoes[0]]['preço']
+prices2 = df_amostra[df_amostra['lapidação'] == opcoes[1]]['preço']
 
 diff, mean1, mean2 = bootstrap(prices1, prices2)
 

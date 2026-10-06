@@ -4,7 +4,7 @@ from io import StringIO
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from src.dataset.data import df_diamonds
+from src.dataset.data import df_amostra
 from src.util.graficos import *
 
 from scipy import stats
@@ -16,11 +16,11 @@ st.markdown('A base de dados utilizada é nativa da biblioteca do Seaborn. A an�
 
 st.divider()
 st.subheader('Base de Dados de Diamantes', text_alignment='center')
-st.dataframe(df_diamonds)
+st.dataframe(df_amostra)
 
 st.divider()
 buffer = StringIO()
-df_diamonds.info(buf=buffer)
+df_amostra.info(buf=buffer)
 st.subheader("Informações do dataset", text_alignment='center')
 st.markdown(
     """
@@ -37,11 +37,11 @@ st.markdown('A base contém ao todo 53940 registros e 10 característica, não p
 
 st.divider()
 st.subheader('Descrição dos dados', text_alignment='center')
-st.dataframe(df_diamonds.describe())
+st.dataframe(df_amostra.describe())
 
 st.divider()
 st.subheader('Correlação entre os dados', text_alignment='center')
-corr = df_diamonds.corr(numeric_only=True)
+corr = df_amostra.corr(numeric_only=True)
 fig_corr, ax = plt.subplots()
 sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
 st.pyplot(fig_corr)
@@ -68,12 +68,12 @@ Dos diamantes apresentados, são dividios em 5 lapidações diferentes:
 st.divider()
 st.subheader('Proporção dos dados',text_alignment='center')
 fig_hist, ax = plt.subplots()
-df_diamonds.hist(ax=ax) 
+df_amostra.hist(ax=ax) 
 st.pyplot(fig_hist)
 st.write('')
 st.subheader('Distribuição dos preços entre as lapidações', text_alignment='center')
 fig_boxplot, ax = plt.subplots()
-sns.boxplot(data=df_diamonds, x='lapidação', y='preço', hue='lapidação', palette=["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"], legend=False, ax=ax)
+sns.boxplot(data=df_amostra, x='lapidação', y='preço', hue='lapidação', palette=["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"], legend=False, ax=ax)
 st.pyplot(fig_boxplot)
 
 st.divider()
