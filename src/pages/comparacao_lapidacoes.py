@@ -10,6 +10,8 @@ import numpy as np
 st.title('Comparação entre lapidações diferentes', text_alignment='center')
 st.divider()
 
+st.markdown('**Para as comparações está sendo utilizada uma amostra de 10% da população, o que representa cerca de 5.000 registros.**')
+
 opcoes = st.multiselect("Selecione quais lapidações você deseja comparar:", df_amostra['lapidação'].unique(),max_selections=2)
 
 st.markdown(
