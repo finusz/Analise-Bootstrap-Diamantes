@@ -5,8 +5,10 @@ import matplotlib.pyplot as plt
 #IMPORTAÇÃO DO DATASET
 from src.dataset.data import df_amostra
 
+cores_hist = ['#FADADD', '#b5bfe0']
 
 def hist_means():
+    
     price_means = []
     for i in range(5000):
         bootstrap = df_amostra['preço'].sample(50, replace=True)
@@ -14,7 +16,7 @@ def hist_means():
         price_means.append(diamonds_means)
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    sns.histplot(data=price_means,alpha=0.5, kde=True)
+    sns.histplot(data=price_means,alpha=0.5, kde=True, color='#FADADD')
 
     ax.set_title('Proporção da média do preço de diamentes')
     ax.set_xlabel('Preço (US$)')
@@ -47,11 +49,12 @@ def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
         ax.tick_params(axis='both', which='major', labelsize=14)
         ax.legend(fontsize=15)
 
-        for data, lbl in zip(data_group, label_group):
-            sns.histplot(data=data, ax=ax, alpha=0.5, kde=True, label=lbl)
+        for idx, (data, lbl) in enumerate(zip(data_group, label_group)):
+            cor_atual = cores_hist[idx] 
+            sns.histplot(data=data, ax=ax, alpha=0.5, kde=True, label=lbl, color=cor_atual)
 
         if len(data_group) > 1:
-            ax.legend()
+            ax.legend(fontsize=11)
 
     return fig
 

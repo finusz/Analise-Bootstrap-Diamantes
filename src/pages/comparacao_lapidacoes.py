@@ -111,7 +111,7 @@ modelo = res['modelo']
 X_test = res['X_test']
 y_test = res['y_test']
 
-st.success(f"**Acurácia do modelo:** {res['acuracia']:.4f}")
+st.success(f"**Acurácia do modelo:** {(res['acuracia'])*100:.2f}%")
 
 # --- Gráfico ---
 fig, ax = plt.subplots(figsize=(8, 6))
