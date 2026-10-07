@@ -22,6 +22,7 @@ st.divider()
 st.markdown('**Para as comparações está sendo utilizada uma amostra de 10% da população, o que representa cerca de 5.000 registros.**')
 
 opcoes = st.multiselect("Selecione quais lapidações você deseja comparar:", df_amostra['lapidação'].unique(),max_selections=2)
+filtro = df_amostra['lapidação'].isin(opcoes)
 
 st.markdown(
     """
@@ -95,17 +96,16 @@ st.divider()
 st.subheader('Support Vector Machine: Classificação',text_alignment='center')
 
 @st.cache_resource(show_spinner="Treinando o modelo SVM...")
-def obter_resultado(classes):          # classes como tupla (hashable)
+def obter_resultado(df):          # classes como tupla (hashable)
     return treinar_svm(
-        df_amostra,
-        classes=classes,
+        df,
         recursos_numericos=FEATURES,
         recursos_categoricos=[],       # só 2 variáveis para poder plotar em 2D
         param_grid=PARAM_GRID,
         n_por_classe=500,
     )
 
-res = obter_resultado(tuple(sorted(opcoes)))
+res = obter_resultado(df_amostra[filtro])
 
 modelo = res['modelo']
 X_test = res['X_test']

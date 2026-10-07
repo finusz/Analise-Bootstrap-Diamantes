@@ -23,7 +23,6 @@ PARAM_GRID_PADRAO = {
 
 def treinar_svm(
     df,
-    classes,
     alvo='lapidação',
     recursos_numericos=None,
     recursos_categoricos=None,
@@ -32,7 +31,8 @@ def treinar_svm(
     test_size=0.2,
     cv=3,
     random_state=42,
-    n_jobs=1
+    n_jobs=1,
+    n_classes=2
 ):
     """Treina um SVM (RBF) entre duas classes de lapidação."""
     if recursos_numericos is None:
@@ -41,10 +41,6 @@ def treinar_svm(
         recursos_categoricos = RECURSOS_CATEGORICOS
     if param_grid is None:
         param_grid = PARAM_GRID_PADRAO
-
-    classes = list(classes)
-    if len(classes) != 2 or classes[0] == classes[1]:
-        raise ValueError("Selecione exatamente duas lapidações diferentes.")
 
     # --- Limpeza ---
     df_proc = df.copy()
@@ -55,19 +51,22 @@ def treinar_svm(
     df_proc = df_proc.dropna(subset=recursos_numericos + recursos_categoricos + [alvo])
 
     # --- Filtra as duas classes ---
-    df_proc = df_proc[df_proc[alvo].isin(classes)]
-
+    df_proc = df_proc[df_proc[alvo].isin(df[alvo].unique())]
     contagem = df_proc[alvo].value_counts()
-    if len(contagem) < 2 or contagem.min() < max(cv, 2):
-        raise ValueError(
-            "Poucos dados para treinar com essas lapidações "
-            f"(amostras por classe: {contagem.to_dict()})."
-        )
+
+    if n_classes == 2:    
+        if len(contagem) < 2 or contagem.min() < max(cv, 2):
+            raise ValueError(
+                "Poucos dados para treinar com essas lapidações "
+                f"(amostras por classe: {contagem.to_dict()})."
+            )
 
     # --- Amostragem balanceada (opcional) ---
     if n_por_classe:
         n = min(n_por_classe, contagem.min())
         df_proc = df_proc.groupby(alvo).sample(n=n, random_state=random_state)
+    else:
+        df_proc = df_proc.groupby(alvo).sample(n=5, random_state=random_state)
 
     X = df_proc[recursos_numericos + recursos_categoricos]
     y = df_proc[alvo]
@@ -102,7 +101,7 @@ def treinar_svm(
 
     return {
         'modelo': modelo,
-        'classes': classes,
+        'classes': df[alvo].unique(),
         'melhores_params': grid.best_params_,
         'acuracia': accuracy_score(y_test, y_pred),
         'relatorio': classification_report(y_test, y_pred),

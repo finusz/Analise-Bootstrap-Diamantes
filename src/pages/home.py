@@ -4,10 +4,18 @@ from io import StringIO
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+from src.models.svm_pipeline import treinar_svm
 from src.dataset.data import df_amostra
 from src.util.graficos import *
 
 from scipy import stats
+import pandas as pd
+import numpy as np
+
+from sklearn.inspection import DecisionBoundaryDisplay
+
+FEATURES = ['profundidade', 'largura do topo em relação à base']
+PARAM_GRID = {'svm__C': [10.0], 'svm__gamma': [1.0]}
 
 st.title('Analise Exploratória de Diamantes', text_alignment='center')
 st.subheader('Felipe Nunes e Heloísa Azevedo', text_alignment='center')
@@ -93,3 +101,71 @@ if p_value > 0.05:
    st.markdown(f'Logo, aceita H0, com 95% de confiança podemos dizer que a média dos preços seja igual a {h0_value}')
 else:
    st.markdown(f'Logo, rejeita H0, com 95% de confiança não podemos dizer que a média dos preços seja igual a {h0_value}')
+
+st.divider()
+st.subheader('Classificação geral utilizando SVM', text_alignment='center')
+
+@st.cache_resource(show_spinner="Treinando o modelo SVM...")
+def obter_resultado():          # classes como tupla (hashable)
+    return treinar_svm(
+        df_amostra,
+        recursos_numericos=FEATURES,
+        recursos_categoricos=[],       # só 2 variáveis para poder plotar em 2D
+        param_grid=PARAM_GRID,
+        n_classes=df_amostra['lapidação'].nunique()
+    )
+
+res = obter_resultado()
+
+modelo = res['modelo']
+X_test = res['X_test']
+y_test = res['y_test']
+
+st.success(f"**Acurácia do modelo:** {(res['acuracia'])*100:.2f}%")
+
+X_plot = res.get(
+    'X', X_test
+)  # Usa X completo se existir em 'res', senão usa X_test
+y_plot = res.get('y', y_test)
+
+# Mapeia as classes para números inteiros (ex: 'Ideal' -> 0, 'Premium' -> 1)
+y_encoded = y_plot.astype('category').cat.codes
+
+# --- Gráfico ---
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# 1. Desenha as regiões da fronteira de decisão (pode usar 'contourf' para preenchimento de cores)
+DecisionBoundaryDisplay.from_estimator(
+    modelo,
+    X_plot,
+    response_method='predict',
+    plot_method='contour',  # 'contourf' pinta as áreas das classes, 'contour' desenha só as linhas
+    cmap=plt.cm.coolwarm,
+    alpha=0.3,
+    ax=ax,
+)
+
+# 2. Desenha TODOS os pontos do dataset/amostra
+scatter = ax.scatter(
+    X_plot.iloc[:, 0],
+    X_plot.iloc[:, 1],
+    c=y_encoded,  # Atribui cores numéricas para cada classe
+    cmap=plt.cm.coolwarm,
+    edgecolors='k',
+    linewidths=0.5,
+    alpha=0.8,
+    s=30,
+)
+
+ax.set_xlabel('Profundidade')
+ax.set_ylabel('Largura do Topo em Relação à Base')
+ax.set_title('Fronteira de Decisão do SVM (Todas as Amostras)')
+
+# Legenda dinâmica automática para qualquer quantidade de classes
+handles, _ = scatter.legend_elements()
+ax.legend(handles, modelo.classes_, title='Lapidação', loc='best')
+
+st.pyplot(fig)
+
+with st.expander("Ver relatório de classificação"):
+    st.code(res['relatorio'], language="text")
