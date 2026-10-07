@@ -51,7 +51,15 @@ st.divider()
 st.subheader('Correlação entre os dados', text_alignment='center')
 corr = df_amostra.corr(numeric_only=True)
 fig_corr, ax = plt.subplots()
-sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
+sns.heatmap(corr, 
+    annot=True,
+    fmt='.2f',
+    cmap='coolwarm',
+    linewidths=0.5,
+    cbar_kws={"shrink": 0.8},
+    annot_kws={"size": 10},
+    ax=ax)
+plt.xticks(rotation=45, ha='right')
 st.pyplot(fig_corr)
 st.markdown('Como esperado, o preço do diamante está muito ligado ao quilate dele.')
 
