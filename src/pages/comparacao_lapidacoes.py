@@ -103,6 +103,7 @@ def obter_resultado(df):          # classes como tupla (hashable)
         recursos_categoricos=[],       # só 2 variáveis para poder plotar em 2D
         param_grid=PARAM_GRID,
         n_por_classe=500,
+        n_classes=2
     )
 
 res = obter_resultado(df_amostra[filtro])

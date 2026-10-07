@@ -32,7 +32,7 @@ def treinar_svm(
     cv=3,
     random_state=42,
     n_jobs=1,
-    n_classes=2
+    n_classes=None
 ):
     """Treina um SVM (RBF) entre duas classes de lapidação."""
     if recursos_numericos is None:
