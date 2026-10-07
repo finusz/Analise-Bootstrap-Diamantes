@@ -125,31 +125,28 @@ st.success(f"**Acurácia do modelo:** {(res['acuracia'])*100:.2f}%")
 
 X_plot = res.get(
     'X', X_test
-)  # Usa X completo se existir em 'res', senão usa X_test
+) 
 y_plot = res.get('y', y_test)
 
-# Mapeia as classes para números inteiros (ex: 'Ideal' -> 0, 'Premium' -> 1)
 y_encoded = y_plot.astype('category').cat.codes
 
 # --- Gráfico ---
 fig, ax = plt.subplots(figsize=(8, 6))
 
-# 1. Desenha as regiões da fronteira de decisão (pode usar 'contourf' para preenchimento de cores)
 DecisionBoundaryDisplay.from_estimator(
     modelo,
     X_plot,
     response_method='predict',
-    plot_method='contour',  # 'contourf' pinta as áreas das classes, 'contour' desenha só as linhas
+    plot_method='contourf', 
     cmap=plt.cm.coolwarm,
     alpha=0.3,
     ax=ax,
 )
 
-# 2. Desenha TODOS os pontos do dataset/amostra
 scatter = ax.scatter(
     X_plot.iloc[:, 0],
     X_plot.iloc[:, 1],
-    c=y_encoded,  # Atribui cores numéricas para cada classe
+    c=y_encoded,  
     cmap=plt.cm.coolwarm,
     edgecolors='k',
     linewidths=0.5,
@@ -161,7 +158,6 @@ ax.set_xlabel('Profundidade')
 ax.set_ylabel('Largura do Topo em Relação à Base')
 ax.set_title('Fronteira de Decisão do SVM (Todas as Amostras)')
 
-# Legenda dinâmica automática para qualquer quantidade de classes
 handles, _ = scatter.legend_elements()
 ax.legend(handles, modelo.classes_, title='Lapidação', loc='best')
 
