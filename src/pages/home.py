@@ -74,11 +74,6 @@ Dos diamantes apresentados, são dividios em 5 lapidações diferentes:
   ''')
 
 st.divider()
-st.subheader('Proporção dos dados',text_alignment='center')
-fig_hist, ax = plt.subplots()
-df_amostra.hist(ax=ax) 
-st.pyplot(fig_hist)
-st.write('')
 st.subheader('Distribuição dos preços entre as lapidações', text_alignment='center')
 fig_boxplot, ax = plt.subplots()
 sns.boxplot(data=df_amostra, x='lapidação', y='preço', hue='lapidação', palette=["#6d5b4f", "#8d7b6f", "#ad9b8f", "#cdbbb0", "#ede0d4"], legend=False, ax=ax)
