@@ -25,7 +25,7 @@ def hist_means():
     return fig, price_means
 
 def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
-    fig, axs = plt.subplots(1, 2, figsize=(20, 10))
+    fig, axs = plt.subplots(1, 2, figsize=(20, 15))
 
     titles = [
         title1,
