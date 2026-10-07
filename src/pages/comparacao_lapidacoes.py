@@ -64,6 +64,8 @@ if len(opcoes) < 2:
     st.stop()
 
 #BOOTSTRAP
+st.divider()
+st.subheader('Reamostragem: Bootstrap',text_alignment='center')
 
 prices1 = df_amostra[df_amostra['lapidação'] == opcoes[0]]['preço']
 prices2 = df_amostra[df_amostra['lapidação'] == opcoes[1]]['preço']
@@ -89,6 +91,8 @@ else:
     st.markdown(f"Não há diferença estatisticamente significativa entre os preços médios das lapidações **{opcoes[0]}** e **{opcoes[1]}** (o intervalo inclui zero).")
 
 #SVM
+st.divider()
+st.subheader('Support Vector Machine: Classificação',text_alignment='center')
 
 @st.cache_resource(show_spinner="Treinando o modelo SVM...")
 def obter_resultado(classes):          # classes como tupla (hashable)
