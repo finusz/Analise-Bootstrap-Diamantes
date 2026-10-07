@@ -24,37 +24,23 @@ def hist_means():
     
     return fig, price_means
 
-def hists(diff, mean1, mean2, title1:str, title2:str, lbl1:str, lbl2:list[str]):
-    fig, axs = plt.subplots(1, 2, figsize=(20, 15))
+def hists(diff, mean1, mean2, title1: str, title2: str, lbl1: str, lbl2: list[str]):
+    fig, axs = plt.subplots(1, 2, figsize=(16, 7), constrained_layout=True)
 
-    titles = [
-        title1,
-        title2
-    ]
-
-    datasets = [
-        [diff],
-        [mean1, mean2]
-    ]
-
-    labels = [
-        [lbl1],
-        lbl2
-    ]
+    titles = [title1, title2]
+    datasets = [[diff], [mean1, mean2]]
+    labels = [[lbl1], lbl2]
 
     for ax, title, data_group, label_group in zip(axs.flat, titles, datasets, labels):
-        ax.set_title(title, fontsize=20, pad=20)
-        ax.set_xlabel('Preço (US$)', fontsize=18, labelpad=10)
-        ax.set_ylabel('Frequência', fontsize=18, labelpad=10)
-        ax.tick_params(axis='both', which='major', labelsize=14)
-        ax.legend(fontsize=15)
-
         for idx, (data, lbl) in enumerate(zip(data_group, label_group)):
-            cor_atual = cores_hist[idx] 
-            sns.histplot(data=data, ax=ax, alpha=0.5, kde=True, label=lbl, color=cor_atual)
+            sns.histplot(data=data, ax=ax, alpha=0.5, kde=True,
+                         label=lbl, color=cores_hist[idx])
 
-        if len(data_group) > 1:
-            ax.legend(fontsize=11)
+        ax.set_title(title, fontsize=14, pad=12)
+        ax.set_xlabel('Preço (US$)', fontsize=12, labelpad=8)
+        ax.set_ylabel('Frequência', fontsize=12, labelpad=8)
+        ax.tick_params(axis='both', which='major', labelsize=11)
+        ax.legend(fontsize=11)
 
     return fig
 

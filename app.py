@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.set_page_config(layout="wide")
+
 main_page = st.Page("src/pages/home.py", title="Analise Exploratória")
 second_page = st.Page('src/pages/comparacao_lapidacoes.py', title="Comparações")
 about_page = st.Page('src/pages/sobre.py', title="Sobre")
