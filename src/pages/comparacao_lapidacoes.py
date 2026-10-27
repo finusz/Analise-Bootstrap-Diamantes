@@ -2,6 +2,12 @@ from src.dataset.data import df_amostra
 from src.util.graficos import hists
 from src.util.calculos import bootstrap, confidence_interval
 from src.models.svm_pipeline import treinar_svm
+import plotly.express as px
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+
+from src.dataset.data import df_amostra
+
 
 import matplotlib.pyplot as plt
 
@@ -144,3 +150,60 @@ st.pyplot(fig)
 
 with st.expander("Ver relatório de classificação"):
     st.code(res['relatorio'], language="text")
+
+
+# DBSCAN
+
+df = df_amostra.copy()
+
+# Colunas numéricas disponíveis para clusterização
+colunas_numericas = df.select_dtypes(include='number').columns.tolist()
+
+padrao = [c for c in ['quilate', 'preço', 'profundidade'] if c in colunas_numericas]
+colunas = st.multiselect(
+    "Escolha 3 variáveis para o DBSCAN",
+    colunas_numericas,
+    default=padrao,
+    max_selections=3,
+)
+
+eps = st.slider("eps (raio da vizinhança)", 0.1, 2.0, 0.5, 0.05)
+min_samples = st.slider("min_samples", 2, 30, 5)
+
+if len(colunas) != 3:
+    st.warning("Selecione exatamente 3 variáveis para o gráfico 3D.")
+    st.stop()
+
+# As features 'simetria' e 'proporcao_altura' podem gerar inf quando x ou y = 0
+df = df.replace([np.inf, -np.inf], np.nan).dropna(subset=colunas).reset_index(drop=True)
+
+# Normalização
+normalizado = pd.DataFrame(
+    StandardScaler().fit_transform(df[colunas]),
+    columns=colunas,
+)
+
+# Clusterização
+y_pred = DBSCAN(eps=eps, min_samples=min_samples).fit_predict(normalizado)
+
+# Texto para o Plotly tratar como categoria (-1 = ruído/outliers)
+cluster = y_pred.astype(str)
+
+st.caption(
+    f"{len(set(y_pred)) - (1 if -1 in y_pred else 0)} clusters encontrados, "
+    f"{(y_pred == -1).sum()} pontos classificados como ruído"
+)
+
+# Gráfico 3D com os dados normalizados
+fig_normalizado = px.scatter_3d(
+    normalizado, x=colunas[0], y=colunas[1], z=colunas[2],
+    color=cluster, labels={'color': 'Cluster'},
+)
+st.plotly_chart(fig_normalizado, use_container_width=True)
+
+# Gráfico 3D com os dados originais
+fig_original = px.scatter_3d(
+    df, x=colunas[0], y=colunas[1], z=colunas[2],
+    color=cluster, labels={'color': 'Cluster'},
+)
+st.plotly_chart(fig_original, use_container_width=True)
