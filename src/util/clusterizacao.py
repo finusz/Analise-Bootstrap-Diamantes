@@ -149,13 +149,6 @@ def render_clusterizacao():
     colorir_por = st.radio("Colorir pontos por:", ['Cluster', 'Lapidação'], horizontal=True, key="cluster_cor")
     cor = cluster if colorir_por == 'Cluster' else df['lapidação']
 
-    fig_normalizado = px.scatter_3d(
-        normalizado, x=colunas[0], y=colunas[1], z=colunas[2],
-        color=cor, labels={'color': colorir_por},
-        title='Dados normalizados',
-    )
-    st.plotly_chart(fig_normalizado, width='stretch')
-
     fig_original = px.scatter_3d(
         df, x=colunas[0], y=colunas[1], z=colunas[2],
         color=cor, labels={'color': colorir_por},
